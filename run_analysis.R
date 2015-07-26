@@ -45,7 +45,9 @@ colnames(allData) <- c("subject", "activity", featuresWanted.names)
 allData$activity <- factor(allData$activity, levels = activityLabels[,1], labels = activityLabels[,2])
 allData$subject <- as.factor(allData$subject)
 
+# melt and dcast the activities & subjects
 allData.melted <- melt(allData, id = c("subject", "activity"))
 allData.mean <- dcast(allData.melted, subject + activity ~ variable, mean)
 
+# write the table tidy
 write.table(allData.mean, "tidy.txt", row.names = FALSE, quote = FALSE)
